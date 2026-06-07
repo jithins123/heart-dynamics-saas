@@ -389,8 +389,20 @@ export default function HeartDynamics() {
 
   // ===== BLUETOOTH =====
   async function connect(){
+    console.log("Connect clicked");
+    console.log("navigator.bluetooth:", navigator.bluetooth);
+    console.log("isSecureContext:", window.isSecureContext);
+      
     if(S.demo)disableDemo();
-    if(!navigator.bluetooth){showErr("Web Bluetooth unavailable — use Chrome/Edge over HTTPS, or switch on Demo.");return;}
+    if (!window.isSecureContext) {
+  showErr("Bluetooth requires HTTPS. Open this from your live https:// Vercel URL, not an insecure preview.");
+  return;
+}
+
+if (!navigator.bluetooth) {
+  showErr("Web Bluetooth is unavailable. Use Chrome or Edge on desktop/Android. Safari, Firefox, iPhone and iPad are not supported.");
+  return;
+}
     try{
       clearErr();setStatus("scan","Scanning…");
       const device=await navigator.bluetooth.requestDevice({filters:[{services:['heart_rate']}],optionalServices:['heart_rate','battery_service']});
