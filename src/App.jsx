@@ -208,9 +208,33 @@ const CSS = `:root{
   .err{width:100%;background:rgba(217,139,74,.12);border:1px solid rgba(217,139,74,.4);color:#e9bb8e;font-size:12px;padding:9px 12px;border-radius:8px;display:none;margin-top:12px;line-height:1.5}
   .err.show{display:block} .err code{color:var(--green)}
   /* learn-the-technique modal */
-  .modal{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;background:rgba(5,5,7,.72);backdrop-filter:blur(3px);padding:20px}
+  .modal{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:9999;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:rgba(5,5,7,.72);
+  backdrop-filter:blur(3px);
+  padding:20px;
+  width:100vw;
+  height:100vh;
+}
   .modal.show{display:flex}
-  .modal-card{background:var(--panel);border:1px solid var(--line-bright);border-radius:18px;padding:34px 36px;max-width:520px;width:100%;position:relative}
+  .modal-card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:34px 36px;
+  max-width:520px;
+  width:100%;
+  position:relative;
+  margin:auto;
+}
   .modal-card h2{font-size:23px;font-weight:400;letter-spacing:.01em}
   .modal-card h2 em{font-style:italic;color:var(--green)}
   .modal-card .msub{font-size:13px;color:var(--dim);margin:6px 0 24px}
