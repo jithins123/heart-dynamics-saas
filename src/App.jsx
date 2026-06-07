@@ -399,8 +399,8 @@ export default function HeartDynamics() {
   return;
 }
 
-if (!navigator.bluetooth) {
-  showErr("Web Bluetooth is unavailable. Use Chrome or Edge on desktop/Android. Safari, Firefox, iPhone and iPad are not supported.");
+if (!browserCanUseBluetooth()) {
+  showBluetoothPopup();
   return;
 }
     try{
@@ -871,17 +871,31 @@ if (!navigator.bluetooth) {
 
   updatePaceSecs();sizeSpark();setDial(null,false);
   // Browser capability gate — Web Bluetooth is Chrome/Edge/Android only (never Safari or iOS)
-  function checkCompat(){
-    if(navigator.bluetooth) return;
-    const ua=navigator.userAgent;
-    const iOS=/iPad|iPhone|iPod/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
-    $("compatMsg").textContent = iOS
-      ? "On iPhone and iPad, no browser can reach the sensor. Please open Heart Dynamics on a computer using Chrome or Edge."
-      : "This browser can’t reach the sensor. Please open Heart Dynamics in Google Chrome or Microsoft Edge.";
-    $("compatGate").classList.add('show');
-  }
-  $("compatDemo").addEventListener('click',()=>{$("compatGate").classList.remove('show');enableDemo();});
-  checkCompat();
+function browserCanUseBluetooth() {
+  return window.isSecureContext && !!navigator.bluetooth;
+}
+
+function showBluetoothPopup() {
+  $("compatMsg").innerHTML = `
+    Heart Dynamics requires Web Bluetooth to connect to your heart sensor.<br><br>
+
+    <b>Supported:</b><br>
+    Chrome or Edge on Windows/Mac<br>
+    Chrome on Android<br><br>
+
+    <b>Not supported:</b><br>
+    iPhone, iPad, Safari, Firefox, Brave, or unsupported/private browsers.<br><br>
+
+    You can still explore the system using Demo Mode.
+  `;
+
+  $("compatGate").classList.add("show");
+}
+
+$("compatDemo").addEventListener("click", () => {
+  $("compatGate").classList.remove("show");
+  enableDemo();
+});
   __raf=requestAnimationFrame(loop);
 
 
