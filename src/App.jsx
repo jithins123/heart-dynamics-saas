@@ -236,7 +236,7 @@ const CSS = `:root{
   margin:auto;
 }
   .modal-card h2{font-size:23px;font-weight:400;letter-spacing:.01em}
-  .modal-card h2 em{font-style:italic;color:var(--green)}
+  .modal-card h2 em{font-style:italic;}
   .modal-card .msub{font-size:13px;color:var(--dim);margin:6px 0 24px}
   .learn-step{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start}
   .learn-step .n{flex:none;width:26px;height:26px;border-radius:50%;border:1px solid var(--green-soft);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500}
