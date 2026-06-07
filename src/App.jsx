@@ -39,11 +39,12 @@ const CSS = `:root{
   .lbl{font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--dim)}
   .num{font-variant-numeric:tabular-nums}
 
-  .monitor{
+.monitor{
   width:100%;
-  max-width:none;
-  border:none;
-  border-radius:0;
+  max-width:1320px;
+  background:var(--strip);
+  border:1px;
+  border-radius:20px;
   padding:24px 30px 28px;
 }
 
