@@ -423,19 +423,18 @@ if (!browserCanUseBluetooth()) {
     return;
   }
 
-  if (
-    e &&
-    (
-      e.name === "SecurityError" ||
-      e.name === "NotAllowedError" ||
-      e.name === "NotSupportedError" ||
-      String(e.message || "").toLowerCase().includes("bluetooth")
-    )
-  ) {
-    showBluetoothPopup();
-    setStatus("off", "Disconnected");
-    return;
-  }
+if (
+  e &&
+  (
+    e.name === "SecurityError" ||
+    e.name === "NotSupportedError" ||
+    String(e.message || "").toLowerCase().includes("bluetooth")
+  )
+) {
+  showBluetoothPopup();
+  setStatus("off", "Disconnected");
+  return;
+}
 
   showErr("Connection failed: " + (e.message || e));
   setStatus("off", "Disconnected");
