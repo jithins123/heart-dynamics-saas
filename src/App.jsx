@@ -39,7 +39,19 @@ const CSS = `:root{
   .lbl{font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--dim)}
   .num{font-variant-numeric:tabular-nums}
 
-  .monitor{width:100%;max-width:1320px;background:var(--strip); padding:24px 30px 28px}
+  .monitor{
+  width:100%;
+  max-width:1320px;
+  background:var(--strip);
+
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  border-left:none;
+  border-right:none;
+
+  border-radius:20px;
+  padding:24px 30px 28px;
+}
 
   .hd{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
   .hd-l{display:flex;align-items:center;gap:15px}
