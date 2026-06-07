@@ -898,14 +898,14 @@ function browserCanUseBluetooth() {
 
 function showBluetoothPopup() {
   $("compatMsg").innerHTML = `
-    Heart Dynamics requires Web Bluetooth to connect to your heart sensor.<br><br>
+    Heart Dynamics could not connect to your heart sensor from this browser.<br><br>
 
-    <b>Supported:</b><br>
+    <b>For best results, use:</b><br>
     Chrome or Edge on Windows/Mac<br>
     Chrome on Android<br><br>
 
-    <b>Not supported:</b><br>
-    iPhone, iPad, Safari, Firefox, Brave, or unsupported/private browsers.<br><br>
+    <b>Not reliable or not supported:</b><br>
+    iPhone, iPad, Safari, Firefox, Brave, or private/restricted browsers.<br><br>
 
     You can still explore the system using Demo Mode.
   `;
