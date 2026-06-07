@@ -242,6 +242,10 @@ const CSS = `:root{
   .learn-step .n{flex:none;width:26px;height:26px;border-radius:50%;border:1px solid var(--green-soft);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500}
   .learn-step .b h4{font-size:15px;font-weight:500;margin-bottom:3px}
   .learn-step .b p{font-size:13px;font-weight:300;color:var(--ink2);line-height:1.55}
+  .learn-step .b{
+  text-align:left;
+  flex:1;
+}
   .modal-x{position:absolute;top:16px;right:18px;background:transparent;color:var(--dim);font-size:22px;line-height:1;cursor:pointer;border:none}
   .modal-x:hover{color:var(--ink)}
   .modal-card .btn{margin-top:8px}
