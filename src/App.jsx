@@ -439,7 +439,7 @@ if (!browserCanUseBluetooth()) {
 
   showErr("Connection failed: " + (e.message || e));
   setStatus("off", "Disconnected");
-}
+
     }
   }
   function disconnect(){try{if(S.device&&S.device.gatt.connected)S.device.gatt.disconnect();}catch(e){}onDisconnect();}
