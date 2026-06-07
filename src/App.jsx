@@ -41,15 +41,9 @@ const CSS = `:root{
 
   .monitor{
   width:100%;
-  max-width:1320px;
-  background:var(--strip);
-
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
-  border-left:none;
-  border-right:none;
-
-  border-radius:20px;
+  max-width:none;
+  border:none;
+  border-radius:0;
   padding:24px 30px 28px;
 }
 
