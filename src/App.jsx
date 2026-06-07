@@ -389,9 +389,7 @@ export default function HeartDynamics() {
 
   // ===== BLUETOOTH =====
   async function connect(){
-    console.log("Connect clicked");
-    console.log("navigator.bluetooth:", navigator.bluetooth);
-    console.log("isSecureContext:", window.isSecureContext);
+
       
     if(S.demo)disableDemo();
     if (!window.isSecureContext) {
@@ -417,8 +415,31 @@ if (!browserCanUseBluetooth()) {
       setStatus("on",(device.name||"KYTO")+(S.battery!=null?"  ·  "+S.battery+"%":""));
       connectBtn.textContent="Disconnect";
     }catch(e){
-      if(e&&e.name==='NotFoundError'){setStatus("off","Disconnected");clearErr();}
-      else{showErr("Connection failed: "+(e.message||e));setStatus("off","Disconnected");}
+  console.log("Bluetooth error:", e);
+
+  if (e && e.name === "NotFoundError") {
+    setStatus("off", "Disconnected");
+    clearErr();
+    return;
+  }
+
+  if (
+    e &&
+    (
+      e.name === "SecurityError" ||
+      e.name === "NotAllowedError" ||
+      e.name === "NotSupportedError" ||
+      String(e.message || "").toLowerCase().includes("bluetooth")
+    )
+  ) {
+    showBluetoothPopup();
+    setStatus("off", "Disconnected");
+    return;
+  }
+
+  showErr("Connection failed: " + (e.message || e));
+  setStatus("off", "Disconnected");
+}
     }
   }
   function disconnect(){try{if(S.device&&S.device.gatt.connected)S.device.gatt.disconnect();}catch(e){}onDisconnect();}
