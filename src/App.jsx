@@ -17,6 +17,7 @@ export default function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/invite/:token" element={<ClientInvite />} />
+        <Route path="/client-signup/:token" element={<ClientSignup />} />
       </Routes>
     </BrowserRouter>
   );
