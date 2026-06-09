@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react";
-
+const params = new URLSearchParams(window.location.search);
+const CLIENT_ID = params.get("client_id");
+const PRACTITIONER_ID = params.get("practitioner_id");
 
 /*
  * Heart Dynamics — Coherence System
