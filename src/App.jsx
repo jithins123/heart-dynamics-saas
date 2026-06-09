@@ -5,6 +5,7 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import ClientInvite from "./pages/ClientInvite";
 import ClientSignup from "./pages/ClientSignup";
+import ClientApp from "./pages/ClientApp";
 import HeartApp from "./pages/HeartApp";
 
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/invite/:token" element={<ClientInvite />} />
         <Route path="/client-signup/:token" element={<ClientSignup />} />
+        <Route path="/client-app" element={<ClientApp />} />
       </Routes>
     </BrowserRouter>
   );
