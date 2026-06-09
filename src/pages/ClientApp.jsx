@@ -51,15 +51,15 @@ export default function ClientApp() {
       </div>
 
       <iframe
-        src="/app"
-        title="Heart Dynamics"
-        style={{
-          width: "100%",
-          minHeight: "900px",
-          border: "0"
-        }}
-        allow="bluetooth; autoplay"
-      />
+  src={`/app?client_id=${clientRecord.id}&practitioner_id=${clientRecord.practitioner_id}`}
+  title="Heart Dynamics"
+  style={{
+    width: "100%",
+    minHeight: "900px",
+    border: "0"
+  }}
+  allow="bluetooth; autoplay"
+/>
     </div>
   );
 }
