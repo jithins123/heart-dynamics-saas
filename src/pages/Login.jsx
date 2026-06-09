@@ -18,7 +18,19 @@ export default function Login() {
       return;
     }
 
-    window.location.href = "/dashboard";
+    const { data } = await supabase.auth.getUser();
+
+const { data: clientRow } = await supabase
+  .from("clients")
+  .select("*")
+  .eq("client_auth_id", data.user.id)
+  .maybeSingle();
+
+if (clientRow) {
+  window.location.href = "/client-app";
+} else {
+  window.location.href = "/dashboard";
+}
   }
 
   return (
