@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
-const params = new URLSearchParams(window.location.search);
-const CLIENT_ID = params.get("client_id");
-const PRACTITIONER_ID = params.get("practitioner_id");
+import { supabase } from "../lib/supabase";
+
+
 
 /*
  * Heart Dynamics — Coherence System
@@ -405,6 +405,9 @@ export default function HeartDynamics() {
     const root = rootRef.current;
     if (!root) return;
     let __raf = 0;
+    const params = new URLSearchParams(window.location.search);
+    const CLIENT_ID = params.get("client_id");
+    const PRACTITIONER_ID = params.get("practitioner_id");
 
 
   "use strict";
@@ -634,11 +637,47 @@ if (
     ticVal.textContent="00:00";ticEl.classList.remove("on");setDial(0,false);
     sessionBtn.textContent="End Session";updateBadge();
   }
-  function endSession(){
-    S.sessionRunning=false;sessionBtn.textContent="Begin Session";
-    if(STRESS.active)stopStress();
-    updateBadge();
+
+      async function saveSessionSummary() {
+  if (!CLIENT_ID || !PRACTITIONER_ID) return;
+
+  const durationSeconds = S.sessionStart
+    ? Math.round((performance.now() - S.sessionStart) / 1000)
+    : 0;
+
+  const payload = {
+    client_id: CLIENT_ID,
+    practitioner_id: PRACTITIONER_ID,
+    session_type: STRESS.active
+      ? "Stress Training"
+      : PL.active
+      ? "Performance Lock"
+      : "Coherence Practice",
+    duration_seconds: durationSeconds,
+    time_in_coherence_seconds: Math.round(S.inCohSec || 0),
+    coherence_score: S.score ? Number(S.score.toFixed(2)) : null
+  };
+
+  const { error } = await supabase.from("sessions").insert(payload);
+
+  if (error) {
+    console.log("Session save error:", error);
+  } else {
+    console.log("Session saved:", payload);
   }
+}
+
+async function endSession(){
+  await saveSessionSummary();
+
+  S.sessionRunning=false;
+  sessionBtn.textContent="Begin Session";
+
+  if(STRESS.active)stopStress();
+
+  updateBadge();
+}
+      
   function tickSession(now){
     if(!S.sessionRunning)return;
     if(!S.lastTick)S.lastTick=now;
