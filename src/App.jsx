@@ -9,13 +9,13 @@ import HeartApp from "./pages/HeartApp";
 export default function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/invite/:token" element={<ClientInvite />} />
-        <Route path="/app" element={<HeartApp />} />
-      </Routes>
+   <Routes>
+  <Route path="/" element={<HeartApp />} />
+  <Route path="/login" element={<Login />} />
+  <Route path="/signup" element={<Signup />} />
+  <Route path="/dashboard" element={<Dashboard />} />
+  <Route path="/invite/:token" element={<ClientInvite />} />
+</Routes>
     </BrowserRouter>
   );
 }
