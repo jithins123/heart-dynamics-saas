@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import ClientInvite from "./pages/ClientInvite";
+import ClientSignup from "./pages/ClientSignup";
 import HeartApp from "./pages/HeartApp";
 
 export default function App() {
