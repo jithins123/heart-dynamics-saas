@@ -639,7 +639,15 @@ if (
   }
 
       async function saveSessionSummary() {
+          console.log("CLIENT_ID", CLIENT_ID);
+console.log("PRACTITIONER_ID", PRACTITIONER_ID);
+console.log("Saving session...");
   if (!CLIENT_ID || !PRACTITIONER_ID) return;
+          if (error) {
+  console.log("Session save error:", error);
+} else {
+  console.log("Session saved");
+}
 
   const durationSeconds = S.sessionStart
     ? Math.round((performance.now() - S.sessionStart) / 1000)
