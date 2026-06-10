@@ -638,7 +638,7 @@ if (
     sessionBtn.textContent="End Session";updateBadge();
   }
 
-      async function saveSessionSummary() {
+async function saveSessionSummary() {
   if (!CLIENT_ID || !PRACTITIONER_ID) {
     console.log("Missing client/practitioner ID, not saving session.");
     return;
@@ -677,32 +677,6 @@ if (
     console.log("Session save error:", result.error);
   } else {
     console.log("Session saved successfully:", result.data);
-  }
-}
-
-  const durationSeconds = S.sessionStart
-    ? Math.round((performance.now() - S.sessionStart) / 1000)
-    : 0;
-
-  const payload = {
-    client_id: CLIENT_ID,
-    practitioner_id: PRACTITIONER_ID,
-    session_type: STRESS.active
-      ? "Stress Training"
-      : PL.active
-      ? "Performance Lock"
-      : "Coherence Practice",
-    duration_seconds: durationSeconds,
-    time_in_coherence_seconds: Math.round(S.inCohSec || 0),
-    coherence_score: S.score ? Number(S.score.toFixed(2)) : null
-  };
-
-  const { error } = await supabase.from("sessions").insert(payload);
-
-  if (error) {
-    console.log("Session save error:", error);
-  } else {
-    console.log("Session saved:", payload);
   }
 }
 
