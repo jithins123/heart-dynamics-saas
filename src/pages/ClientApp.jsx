@@ -58,7 +58,7 @@ export default function ClientApp() {
     minHeight: "900px",
     border: "0"
   }}
-  allow="bluetooth; autoplay"
+  allow="bluetooth *; autoplay *"
 />
     </div>
   );
