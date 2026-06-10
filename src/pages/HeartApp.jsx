@@ -639,14 +639,45 @@ if (
   }
 
       async function saveSessionSummary() {
-          console.log("CLIENT_ID", CLIENT_ID);
-console.log("PRACTITIONER_ID", PRACTITIONER_ID);
-console.log("Saving session...");
-  if (!CLIENT_ID || !PRACTITIONER_ID) return;
-          if (error) {
-  console.log("Session save error:", error);
-} else {
-  console.log("Session saved");
+  if (!CLIENT_ID || !PRACTITIONER_ID) {
+    console.log("Missing client/practitioner ID, not saving session.");
+    return;
+  }
+
+  const durationSeconds = S.sessionStart
+    ? Math.round((performance.now() - S.sessionStart) / 1000)
+    : 0;
+
+  let sessionType = "Coherence Practice";
+
+  if (STRESS.active) {
+    sessionType = "Stress Training";
+  }
+
+  if (PL.active) {
+    sessionType = "Performance Lock";
+  }
+
+  const sessionPayload = {
+    client_id: CLIENT_ID,
+    practitioner_id: PRACTITIONER_ID,
+    session_type: sessionType,
+    duration_seconds: durationSeconds,
+    time_in_coherence_seconds: Math.round(S.inCohSec || 0),
+    coherence_score: S.score ? Number(S.score.toFixed(2)) : null
+  };
+
+  console.log("Saving session payload:", sessionPayload);
+
+  const result = await supabase
+    .from("sessions")
+    .insert([sessionPayload]);
+
+  if (result.error) {
+    console.log("Session save error:", result.error);
+  } else {
+    console.log("Session saved successfully:", result.data);
+  }
 }
 
   const durationSeconds = S.sessionStart
