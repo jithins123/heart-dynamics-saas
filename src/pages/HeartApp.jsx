@@ -544,6 +544,25 @@ export default function HeartDynamics({ clientId, practitionerId }) {
   function clearErr(){err.classList.remove("show");}
   function setStatus(k,t){statusTxt.textContent=t;sdot.className="sdot"+(k==="on"?" on":(k==="scan"||k==="warn")?" warn":"");}
 
+      function updateSessionButton() {
+  const canStart = S.connected || S.demo;
+
+  sessionBtn.disabled = !canStart && !S.sessionRunning;
+
+  sessionBtn.classList.remove("session-disabled", "session-ready", "session-live");
+
+  if (S.sessionRunning) {
+    sessionBtn.classList.add("session-live");
+    sessionBtn.textContent = "End Session";
+  } else if (canStart) {
+    sessionBtn.classList.add("session-ready");
+    sessionBtn.textContent = "Begin Session";
+  } else {
+    sessionBtn.classList.add("session-disabled");
+    sessionBtn.textContent = "Connect Sensor First";
+  }
+}
+
   // ===== BLUETOOTH =====
   async function connect(){
 
@@ -748,7 +767,7 @@ if (
     else{badge.textContent="COMING SOON";badge.style.color="var(--green)";badge.style.borderColor="var(--green-soft)";}
   }
   function startSession(){
-    S.sessionRunning=true;S.sessionStart=performance.now();S.lastTick=performance.now();
+    S.sessionStart=performance.now();S.lastTick=performance.now();
     S.inCohSec=0;S.ttc=null;S.ttcDone=false;
     ticVal.textContent="00:00";ticEl.classList.remove("on");setDial(0,false);
     sessionBtn.textContent="End Session";updateBadge();
