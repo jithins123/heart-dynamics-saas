@@ -1,0 +1,138 @@
+:root {
+  --hd-bg: #08080a;
+  --hd-panel: #0e0e12;
+  --hd-panel-2: #101015;
+  --hd-green: #c5ff3c;
+  --hd-green-soft: rgba(197, 255, 60, 0.55);
+  --hd-green-faint: rgba(197, 255, 60, 0.14);
+  --hd-amber: #ff6b4a;
+  --hd-ink: #eef0ea;
+  --hd-ink-2: #cfd0c8;
+  --hd-dim: #6c6d66;
+  --hd-line: rgba(255, 255, 255, 0.08);
+  --hd-font: "Jost", system-ui, sans-serif;
+}
+
+.portal-page {
+  min-height: 100vh;
+  background: var(--hd-bg);
+  color: var(--hd-ink);
+  font-family: var(--hd-font);
+  padding: 32px;
+}
+
+.portal-shell {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.portal-card {
+  background: var(--hd-panel);
+  border: 1px solid var(--hd-line);
+  border-radius: 18px;
+  padding: 28px;
+}
+
+.portal-title {
+  font-size: 34px;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+
+.portal-title em {
+  color: var(--hd-green);
+  font-style: italic;
+}
+
+.portal-subtitle {
+  color: var(--hd-dim);
+  margin-bottom: 28px;
+}
+
+.portal-input {
+  background: var(--hd-panel-2);
+  border: 1px solid var(--hd-line);
+  border-radius: 9px;
+  color: var(--hd-ink);
+  padding: 11px 13px;
+  font-family: var(--hd-font);
+  outline: none;
+}
+
+.portal-input:focus {
+  border-color: var(--hd-green-soft);
+}
+
+.portal-button {
+  background: var(--hd-green);
+  color: #15200a;
+  border: none;
+  border-radius: 9px;
+  padding: 11px 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.portal-button.secondary {
+  background: transparent;
+  color: var(--hd-ink-2);
+  border: 1px solid var(--hd-line);
+}
+
+.portal-button.secondary:hover {
+  border-color: var(--hd-green-soft);
+  color: var(--hd-green);
+}
+
+.portal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+  border-bottom: 1px solid var(--hd-line);
+  padding-bottom: 18px;
+}
+
+.portal-nav {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.portal-nav a {
+  color: var(--hd-ink-2);
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.portal-nav a:hover {
+  color: var(--hd-green);
+}
+
+.portal-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.portal-list-item {
+  background: var(--hd-panel);
+  border: 1px solid var(--hd-line);
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 14px;
+}
+
+.portal-muted {
+  color: var(--hd-dim);
+}
+
+.portal-link-box {
+  width: 100%;
+  max-width: 520px;
+  background: var(--hd-panel-2);
+  border: 1px solid var(--hd-line);
+  color: var(--hd-ink-2);
+  border-radius: 8px;
+  padding: 9px 11px;
+}
