@@ -398,7 +398,7 @@ const MARKUP = `<div class="monitor">
   </div>
 </div>`;
 
-export default function HeartDynamics() {
+export default function HeartDynamics({ clientId, practitionerId }) {
   const rootRef = useRef(null);
 
   useEffect(() => {
@@ -406,8 +406,8 @@ export default function HeartDynamics() {
     if (!root) return;
     let __raf = 0;
     const params = new URLSearchParams(window.location.search);
-    const CLIENT_ID = params.get("client_id");
-    const PRACTITIONER_ID = params.get("practitioner_id");
+    const CLIENT_ID = clientId || params.get("client_id");
+    const PRACTITIONER_ID = practitionerId || params.get("practitioner_id");
 
 
   "use strict";
