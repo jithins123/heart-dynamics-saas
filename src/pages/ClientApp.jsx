@@ -107,32 +107,13 @@ export default function ClientApp() {
         </header>
 
         <section className="dashboard-card glow" style={{ marginBottom: "22px" }}>
-          <h2>
-            Welcome, <em>{clientName}</em>
-          </h2>
+       <h2>
+  Welcome, <em>{clientName}</em>
+</h2>
 
-          <p>
-            Your Heart Dynamics training portal is connected to{" "}
-            <strong style={{ color: "var(--hd-ink)" }}>
-              {practitionerName}
-            </strong>
-            {businessName ? (
-              <>
-                {" "}
-                at{" "}
-                <strong style={{ color: "var(--hd-ink)" }}>
-                  {businessName}
-                </strong>
-              </>
-            ) : null}
-            .
-          </p>
-
-          <p className="portal-muted" style={{ marginTop: "10px" }}>
-            Use the session below to practise coherence, stress regulation, and
-            performance lock training. Your session summaries will be saved for
-            practitioner review.
-          </p>
+<p className="portal-muted">
+  Begin your coherence practice.
+</p>
         </section>
 
         <HeartApp
