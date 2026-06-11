@@ -268,6 +268,44 @@ const MARKUP = `<div class="monitor">
   </div>
   <div class="rule"></div>
 
+    <!-- CONTROLS -->
+  <div class="bar2">
+    <div class="status"><span class="sdot" id="sdot"></span><span id="statusTxt">Disconnected</span></div>
+    <button class="btn" id="connectBtn">Connect Sensor</button>
+    <button class="btn ghost" id="sessionBtn">Begin Session</button>
+    <div class="spacer"></div>
+    <div class="grp"><span class="lbl">Rate</span><input type="range" id="rate" min="4.5" max="6.5" step="0.5" value="5.5"><span class="lbl num" id="rateVal" style="color:var(--green-soft)">5.5</span></div>
+    <div class="seg" id="ratioSeg"><button data-r="1" class="active">5:5</button><button data-r="1.5">4:6</button></div>
+    <label class="toggle" id="demoToggle"><span class="sw"></span><span>Demo</span></label>
+    <div class="err" id="err"></div>
+  </div>
+</div>
+
+<div class="session-card">
+  <div class="session-copy">
+    <div class="lbl">Session Setup</div>
+    <h2>Prepare your <em>coherence session</em></h2>
+    <p>Connect your sensor first, then begin your session when the signal is live.</p>
+  </div>
+
+  <div class="session-controls">
+    <div class="status"><span class="sdot" id="sdot"></span><span id="statusTxt">Disconnected</span></div>
+
+    <div class="session-buttons">
+      <button class="btn" id="connectBtn">Connect Sensor</button>
+      <button class="btn session-disabled" id="sessionBtn" disabled>Begin Session</button>
+    </div>
+
+    <div class="session-options">
+      <div class="grp"><span class="lbl">Rate</span><input type="range" id="rate" min="4.5" max="6.5" step="0.5" value="5.5"><span class="lbl num" id="rateVal" style="color:var(--green-soft)">5.5</span></div>
+      <div class="seg" id="ratioSeg"><button data-r="1" class="active">5:5</button><button data-r="1.5">4:6</button></div>
+      <label class="toggle" id="demoToggle"><span class="sw"></span><span>Demo</span></label>
+    </div>
+  </div>
+
+  <div class="err" id="err"></div>
+</div>
+
   <div class="stage">
     <!-- LEFT -->
     <div class="pnl">
@@ -363,18 +401,7 @@ const MARKUP = `<div class="monitor">
     </div>
   </div>
 
-  <!-- CONTROLS -->
-  <div class="bar2">
-    <div class="status"><span class="sdot" id="sdot"></span><span id="statusTxt">Disconnected</span></div>
-    <button class="btn" id="connectBtn">Connect Sensor</button>
-    <button class="btn ghost" id="sessionBtn">Begin Session</button>
-    <div class="spacer"></div>
-    <div class="grp"><span class="lbl">Rate</span><input type="range" id="rate" min="4.5" max="6.5" step="0.5" value="5.5"><span class="lbl num" id="rateVal" style="color:var(--green-soft)">5.5</span></div>
-    <div class="seg" id="ratioSeg"><button data-r="1" class="active">5:5</button><button data-r="1.5">4:6</button></div>
-    <label class="toggle" id="demoToggle"><span class="sw"></span><span>Demo</span></label>
-    <div class="err" id="err"></div>
-  </div>
-</div>
+
 
 <div class="modal" id="learnModal">
   <div class="modal-card">
