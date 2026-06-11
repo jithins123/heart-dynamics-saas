@@ -8,6 +8,19 @@ export default function Dashboard() {
   const [clientName, setClientName] = useState("");
   const [clientEmail, setClientEmail] = useState("");
   const [loading, setLoading] = useState(true);
+  const { data: clientRows } = await supabase
+  .from("clients")
+  .select(`
+    *,
+    client_session_stats (
+      total_sessions,
+      last_session_at,
+      average_coherence,
+      total_time_in_coherence_seconds
+    )
+  `)
+  .eq("practitioner_id", data.user.id)
+  .order("created_at", { ascending: false });
 
   useEffect(() => {
     loadDashboard();
