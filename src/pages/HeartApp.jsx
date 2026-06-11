@@ -254,94 +254,12 @@ const CSS = `:root{
   .modal-card .btn{margin-top:8px}
   .compat-row{font-size:13px;color:var(--ink2);line-height:1.7;margin:3px 0}
   .compat-row b{color:var(--green);font-weight:500}
-  .compat-row.bad b{color:var(--amber)}`
-    
-    .session-card{
-  display:grid;
-  grid-template-columns:1fr auto;
-  gap:22px;
-  align-items:center;
-  margin-bottom:24px;
-  padding:20px 22px;
-  background:linear-gradient(135deg,rgba(197,255,60,.08),rgba(197,255,60,.015)),var(--panel);
-  border:1px solid var(--green-soft);
-  border-radius:16px;
-  box-shadow:0 0 36px rgba(197,255,60,.07);
-}
+  
+  .compat-row.bad b{color:var(--amber)}
 
-.session-copy h2{
-  font-size:24px;
-  font-weight:400;
-  margin:7px 0 5px;
-  color:var(--ink);
-}
+}`;
 
-.session-copy h2 em{
-  color:var(--green);
-  font-style:italic;
-  font-weight:400;
-}
 
-.session-copy p{
-  color:var(--dim);
-  font-size:13px;
-  line-height:1.5;
-}
-
-.session-controls{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-end;
-  gap:11px;
-}
-
-.session-buttons{
-  display:flex;
-  gap:10px;
-  align-items:center;
-}
-
-.session-options{
-  display:flex;
-  gap:13px;
-  align-items:center;
-  flex-wrap:wrap;
-  justify-content:flex-end;
-}
-
-.btn.session-disabled{
-  background:rgba(255,255,255,.07);
-  color:var(--dim);
-  border:1px solid var(--line);
-  cursor:not-allowed;
-  opacity:.75;
-}
-
-.btn.session-ready{
-  background:var(--green);
-  color:#15200a;
-  box-shadow:0 0 18px rgba(197,255,60,.16);
-}
-
-.btn.session-live{
-  background:var(--amber);
-  color:#1a0e08;
-  box-shadow:0 0 18px rgba(255,107,74,.18);
-}
-
-@media(max-width:900px){
-  .session-card{
-    grid-template-columns:1fr;
-  }
-
-  .session-controls{
-    align-items:flex-start;
-  }
-
-  .session-options{
-    justify-content:flex-start;
-  }
-};
 
 
 
@@ -358,17 +276,7 @@ const MARKUP = `<div class="monitor">
   <div class="rule"></div>
 
     <!-- CONTROLS -->
-  <div class="bar2">
-    <div class="status"><span class="sdot" id="sdot"></span><span id="statusTxt">Disconnected</span></div>
-    <button class="btn" id="connectBtn">Connect Sensor</button>
-    <button class="btn ghost" id="sessionBtn">Begin Session</button>
-    <div class="spacer"></div>
-    <div class="grp"><span class="lbl">Rate</span><input type="range" id="rate" min="4.5" max="6.5" step="0.5" value="5.5"><span class="lbl num" id="rateVal" style="color:var(--green-soft)">5.5</span></div>
-    <div class="seg" id="ratioSeg"><button data-r="1" class="active">5:5</button><button data-r="1.5">4:6</button></div>
-    <label class="toggle" id="demoToggle"><span class="sw"></span><span>Demo</span></label>
-    <div class="err" id="err"></div>
-  </div>
-</div>
+
 
 <div class="session-card">
   <div class="session-copy">
@@ -378,22 +286,39 @@ const MARKUP = `<div class="monitor">
   </div>
 
   <div class="session-controls">
-    <div class="status"><span class="sdot" id="sdot"></span><span id="statusTxt">Disconnected</span></div>
+    <div class="status">
+      <span class="sdot" id="sdot"></span>
+      <span id="statusTxt">Disconnected</span>
+    </div>
 
     <div class="session-buttons">
       <button class="btn" id="connectBtn">Connect Sensor</button>
-      <button class="btn session-disabled" id="sessionBtn" disabled>Begin Session</button>
+      <button class="btn session-disabled" id="sessionBtn" disabled>Connect Sensor First</button>
     </div>
 
     <div class="session-options">
-      <div class="grp"><span class="lbl">Rate</span><input type="range" id="rate" min="4.5" max="6.5" step="0.5" value="5.5"><span class="lbl num" id="rateVal" style="color:var(--green-soft)">5.5</span></div>
-      <div class="seg" id="ratioSeg"><button data-r="1" class="active">5:5</button><button data-r="1.5">4:6</button></div>
-      <label class="toggle" id="demoToggle"><span class="sw"></span><span>Demo</span></label>
+      <div class="grp">
+        <span class="lbl">Rate</span>
+        <input type="range" id="rate" min="4.5" max="6.5" step="0.5" value="5.5">
+        <span class="lbl num" id="rateVal" style="color:var(--green-soft)">5.5</span>
+      </div>
+
+      <div class="seg" id="ratioSeg">
+        <button data-r="1" class="active">5:5</button>
+        <button data-r="1.5">4:6</button>
+      </div>
+
+      <label class="toggle" id="demoToggle">
+        <span class="sw"></span>
+        <span>Demo</span>
+      </label>
     </div>
   </div>
 
   <div class="err" id="err"></div>
 </div>
+
+
 
   <div class="stage">
     <!-- LEFT -->
@@ -590,6 +515,7 @@ if (!browserCanUseBluetooth()) {
       S.connected=true;S.beats=[];
       setStatus("on",(device.name||"KYTO")+(S.battery!=null?"  ·  "+S.battery+"%":""));
       connectBtn.textContent="Disconnect";
+        updateSessionButton();
     }catch(e){
   console.log("Bluetooth error:", e);
 
@@ -618,7 +544,20 @@ if (
     }
   }
   function disconnect(){try{if(S.device&&S.device.gatt.connected)S.device.gatt.disconnect();}catch(e){}onDisconnect();}
-  function onDisconnect(){S.connected=false;S.hrChar=null;S.lastHR=null;setStatus("off","Disconnected");connectBtn.textContent="Connect Sensor";}
+  async function onDisconnect(){
+  S.connected = false;
+  S.hrChar = null;
+  S.lastHR = null;
+
+  if (S.sessionRunning) {
+    await endSession();
+    showErr("Sensor disconnected. Your session was ended automatically.");
+  }
+
+  setStatus("off", "Disconnected");
+  connectBtn.textContent = "Connect Sensor";
+  updateSessionButton();
+}
   function onHR(ev){
     const v=ev.target.value,flags=v.getUint8(0);let i=1,hr;
     if(flags&0x01){hr=v.getUint16(i,true);i+=2;}else{hr=v.getUint8(i);i+=1;}
@@ -649,6 +588,7 @@ if (
       S.lastRR=Math.round(60000/hr);S.lastHR=Math.round(hr);
       S.beats.push({t:performance.now()/1000,hr});trim();
     },850);
+      updateSessionButton();
   }
   function disableDemo(){
     S.demo=false;demoToggle.classList.remove("on");connectBtn.disabled=false;
@@ -766,12 +706,29 @@ if (
     else if(S.sessionRunning){badge.textContent="● LIVE";badge.style.color="var(--green)";badge.style.borderColor="var(--green-soft)";}
     else{badge.textContent="COMING SOON";badge.style.color="var(--green)";badge.style.borderColor="var(--green-soft)";}
   }
-  function startSession(){
-    S.sessionStart=performance.now();S.lastTick=performance.now();
-    S.inCohSec=0;S.ttc=null;S.ttcDone=false;
-    ticVal.textContent="00:00";ticEl.classList.remove("on");setDial(0,false);
-    sessionBtn.textContent="End Session";updateBadge();
+function startSession(){
+  if (!S.connected && !S.demo) {
+    showErr("Please connect your sensor before beginning a session.");
+    updateSessionButton();
+    return;
   }
+
+  clearErr();
+
+  S.sessionRunning = true;
+  S.sessionStart = performance.now();
+  S.lastTick = performance.now();
+  S.inCohSec = 0;
+  S.ttc = null;
+  S.ttcDone = false;
+
+  ticVal.textContent = "00:00";
+  ticEl.classList.remove("on");
+  setDial(0,false);
+
+  updateBadge();
+  updateSessionButton();
+}
 
 async function saveSessionSummary() {
   if (!CLIENT_ID || !PRACTITIONER_ID) {
@@ -818,12 +775,13 @@ async function saveSessionSummary() {
 async function endSession(){
   await saveSessionSummary();
 
-  S.sessionRunning=false;
-  sessionBtn.textContent="Begin Session";
+  S.sessionRunning = false;
+  sessionBtn.textContent = "Begin Session";
 
-  if(STRESS.active)stopStress();
+  if(STRESS.active) stopStress();
 
   updateBadge();
+  updateSessionButton();
 }
       
   function tickSession(now){
@@ -1115,6 +1073,7 @@ async function endSession(){
   sessionBtn.addEventListener('click',()=>S.sessionRunning?endSession():startSession());
 
   updatePaceSecs();sizeSpark();setDial(null,false);
+    updateSessionButton();
   // Browser capability gate — Web Bluetooth is Chrome/Edge/Android only (never Safari or iOS)
 function browserCanUseBluetooth() {
   return window.isSecureContext && !!navigator.bluetooth;
