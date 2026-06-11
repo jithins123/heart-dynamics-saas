@@ -1,3 +1,4 @@
+import HeartApp from "./HeartApp";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 
@@ -50,15 +51,9 @@ export default function ClientApp() {
         Client: {clientRecord.client_name || clientRecord.client_email}
       </div>
 
-      <iframe
-  src={`/app?client_id=${clientRecord.id}&practitioner_id=${clientRecord.practitioner_id}`}
-  title="Heart Dynamics"
-  style={{
-    width: "100%",
-    minHeight: "900px",
-    border: "0"
-  }}
-  allow="bluetooth *; autoplay *"
+     <HeartApp
+  clientId={clientRecord.id}
+  practitionerId={clientRecord.practitioner_id}
 />
     </div>
   );
