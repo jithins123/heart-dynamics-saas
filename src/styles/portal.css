@@ -1,9 +1,74 @@
 @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&display=swap');
-:root {
-  --hd-font: 'Jost', system-ui, sans-serif;
-}
-body {
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  background: var(--hd-bg);
   font-family: var(--hd-font);
+}
+
+.login-page {
+  min-height: 100vh;
+  width: 100%;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(197,255,60,.08), transparent 35%),
+    var(--hd-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 460px;
+  background: var(--hd-panel);
+  border: 1px solid var(--hd-green-soft);
+  box-shadow: 0 0 40px rgba(197,255,60,.08);
+  border-radius: 22px;
+  padding: 36px;
+}
+
+.hd-logo {
+  width: 36px;
+  height: 36px;
+  border: 1.4px solid var(--hd-green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.hd-logo::after {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--hd-green);
+  box-shadow: 0 0 10px var(--hd-green);
+}
+
+.login-brand h1 {
+  font-size: 34px;
+  font-weight: 500;
+  color: var(--hd-ink);
+  margin: 0;
+}
+
+.login-brand h1 em {
+  color: var(--hd-green);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.login-brand p {
+  color: var(--hd-dim);
+  margin-top: 6px;
+  margin-bottom: 28px;
 }
 :root {
   --hd-bg: #08080a;
