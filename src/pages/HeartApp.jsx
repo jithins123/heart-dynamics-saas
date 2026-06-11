@@ -254,7 +254,96 @@ const CSS = `:root{
   .modal-card .btn{margin-top:8px}
   .compat-row{font-size:13px;color:var(--ink2);line-height:1.7;margin:3px 0}
   .compat-row b{color:var(--green);font-weight:500}
-  .compat-row.bad b{color:var(--amber)}`;
+  .compat-row.bad b{color:var(--amber)}`
+    
+    .session-card{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:22px;
+  align-items:center;
+  margin-bottom:24px;
+  padding:20px 22px;
+  background:linear-gradient(135deg,rgba(197,255,60,.08),rgba(197,255,60,.015)),var(--panel);
+  border:1px solid var(--green-soft);
+  border-radius:16px;
+  box-shadow:0 0 36px rgba(197,255,60,.07);
+}
+
+.session-copy h2{
+  font-size:24px;
+  font-weight:400;
+  margin:7px 0 5px;
+  color:var(--ink);
+}
+
+.session-copy h2 em{
+  color:var(--green);
+  font-style:italic;
+  font-weight:400;
+}
+
+.session-copy p{
+  color:var(--dim);
+  font-size:13px;
+  line-height:1.5;
+}
+
+.session-controls{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:11px;
+}
+
+.session-buttons{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.session-options{
+  display:flex;
+  gap:13px;
+  align-items:center;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+.btn.session-disabled{
+  background:rgba(255,255,255,.07);
+  color:var(--dim);
+  border:1px solid var(--line);
+  cursor:not-allowed;
+  opacity:.75;
+}
+
+.btn.session-ready{
+  background:var(--green);
+  color:#15200a;
+  box-shadow:0 0 18px rgba(197,255,60,.16);
+}
+
+.btn.session-live{
+  background:var(--amber);
+  color:#1a0e08;
+  box-shadow:0 0 18px rgba(255,107,74,.18);
+}
+
+@media(max-width:900px){
+  .session-card{
+    grid-template-columns:1fr;
+  }
+
+  .session-controls{
+    align-items:flex-start;
+  }
+
+  .session-options{
+    justify-content:flex-start;
+  }
+};
+
+
 
 const MARKUP = `<div class="monitor">
 
