@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
+import LogoutButton from "../components/LogoutButton";
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);
@@ -62,80 +63,142 @@ export default function Dashboard() {
     loadDashboard();
   }
 
-  async function handleLogout() {
-    await supabase.auth.signOut();
-    window.location.href = "/login";
+  async function copyInvite(link) {
+    await navigator.clipboard.writeText(link);
+    alert("Invite link copied");
   }
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) {
+    return (
+      <main className="dashboard-page">
+        <div className="dashboard-shell">
+          <p className="portal-muted">Loading dashboard...</p>
+        </div>
+      </main>
+    );
+  }
 
   return (
-    <div style={{ padding: "40px", color: "white" }}>
-      <h1>Practitioner Dashboard</h1>
-      <p>Logged in as: {user.email}</p>
+    <main className="dashboard-page">
+      <div className="dashboard-shell">
+        <header className="dashboard-header">
+          <div className="dashboard-brand">
+            <div className="hd-logo" style={{ marginBottom: 0 }}></div>
 
-      <button onClick={() => (window.location.href = "/app")}>
-        Launch Heart Dynamics
-      </button>
+            <div>
+              <h1>
+                Heart <em>Dynamics</em>
+              </h1>
+              <p>The Mind Academy · Practitioner Portal</p>
+            </div>
+          </div>
 
-      <button onClick={handleLogout} style={{ marginLeft: "12px" }}>
-        Logout
-      </button>
+          <div className="dashboard-actions">
+            <button
+              className="portal-button secondary"
+              onClick={() => (window.location.href = "/app")}
+            >
+              Launch App
+            </button>
 
-      <hr style={{ margin: "30px 0" }} />
+            <LogoutButton />
+          </div>
+        </header>
 
-      <h2>Add Client</h2>
+        <section className="dashboard-grid">
+          <div className="dashboard-card glow">
+            <h2>
+              Add <em>Client</em>
+            </h2>
+            <p>
+              Create a private invite link for a client to access Heart Dynamics.
+            </p>
 
-      <form onSubmit={handleAddClient}>
-        <input
-          type="text"
-          placeholder="Client name"
-          value={clientName}
-          onChange={(e) => setClientName(e.target.value)}
-        />
+            <form className="dashboard-form" onSubmit={handleAddClient}>
+              <input
+                className="portal-input"
+                type="text"
+                placeholder="Client name"
+                value={clientName}
+                onChange={(e) => setClientName(e.target.value)}
+              />
 
-        <input
-          type="email"
-          placeholder="Client email"
-          value={clientEmail}
-          onChange={(e) => setClientEmail(e.target.value)}
-          style={{ marginLeft: "8px" }}
-        />
+              <input
+                className="portal-input"
+                type="email"
+                placeholder="Client email"
+                value={clientEmail}
+                onChange={(e) => setClientEmail(e.target.value)}
+                required
+              />
 
-        <button type="submit" style={{ marginLeft: "8px" }}>
-          Add Client
-        </button>
-      </form>
+              <button className="portal-button" type="submit">
+                Generate Invite
+              </button>
+            </form>
 
-      <h2 style={{ marginTop: "30px" }}>Clients</h2>
+            <p className="portal-muted" style={{ marginTop: "18px", fontSize: "13px" }}>
+              Logged in as {user?.email}
+            </p>
+          </div>
 
-      {clients.length === 0 ? (
-        <p>No clients yet.</p>
-      ) : (
-        <ul>
-          {clients.map((client) => {
-            const inviteLink = `${window.location.origin}/invite/${client.invite_token}`;
+          <div className="dashboard-card">
+            <h2>
+              Your <em>Clients</em>
+            </h2>
+            <p>
+              Manage invite links and review session history as the portal grows.
+            </p>
 
-            return (
-              <li key={client.id} style={{ marginBottom: "16px" }}>
-                <strong>{client.client_name || "Unnamed Client"}</strong>
-                <br />
-                {client.client_email}
-                <br />
-                Status: {client.invite_status}
-                <br />
-                Invite link:{" "}
-                <input
-                  value={inviteLink}
-                  readOnly
-                  style={{ width: "420px" }}
-                  onFocus={(e) => e.target.select()}
-                />
-              </li>
-            );
-          })}
-        </ul>
-      )}
-    </div>
+            {clients.length === 0 ? (
+              <div className="dashboard-empty">
+                No clients yet. Add your first client to generate an invite link.
+              </div>
+            ) : (
+              <div className="client-list">
+                {clients.map((client) => {
+                  const inviteLink = `${window.location.origin}/invite/${client.invite_token}`;
+                  const isAccepted = client.invite_status === "accepted";
+
+                  return (
+                    <div className="client-card" key={client.id}>
+                      <div className="client-top">
+                        <div>
+                          <div className="client-name">
+                            {client.client_name || "Unnamed Client"}
+                          </div>
+                          <div className="client-email">{client.client_email}</div>
+                        </div>
+
+                        <span className={`status-pill ${isAccepted ? "" : "pending"}`}>
+                          {client.invite_status}
+                        </span>
+                      </div>
+
+                      <div className="invite-row">
+                        <input
+                          className="portal-link-box"
+                          value={inviteLink}
+                          readOnly
+                          onFocus={(e) => e.target.select()}
+                        />
+
+                        <button
+                          className="portal-button secondary"
+                          type="button"
+                          onClick={() => copyInvite(inviteLink)}
+                        >
+                          Copy
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </section>
+      </div>
+    </main>
   );
 }
